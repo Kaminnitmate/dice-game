@@ -7,10 +7,6 @@ var scores = [0, 0];
 //Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
 var roundScore = 0;
 
-//Шооны буусан тоог хадгалах
-var diceRandNumber = Math.floor(Math.random() * 6) + 1;
-console.log(diceRandNumber);
-
 // <div class="player-score" id="score-0">43</div>
 // document.querySelector("#score-0").innerHTML = dice;
 
@@ -27,4 +23,13 @@ document.getElementById("score-1").textContent = "0";
 document.getElementById("current-0").textContent = "0";
 document.getElementById("current-1").textContent = "0";
 
-document.querySelector(".dice").style.display = "none";
+var diceDom = document.querySelector(".dice");
+diceDom.style.display = "none";
+
+document.querySelector(".btn-roll").addEventListener("click", function () {
+    var diceRandNumber = Math.floor(Math.random() * 6) + 1;
+    diceDom.style.display = "block";
+    diceDom.src = "dice-" + diceRandNumber + ".png";
+
+    alert("Шоог буулаа : " + diceRandNumber);
+});
