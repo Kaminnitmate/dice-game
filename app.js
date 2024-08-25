@@ -45,24 +45,48 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
             roundScore;
     } else {
         //1 буусан тул тоглогчийн ээлжийг энд сольж өгнө
-
-        //Энэ тоглогчийн ээлжиндээ цугуулсан оноог 0 болгоно
-        roundScore = 0;
-        document.getElementById("current-" + activePlayer).textContent = 0;
-
-        activePlayer == 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-        //Улаан цэгийг шилжүүлэх
-        document.querySelector(".player-0-panel").classList.toggle("active"); //Хэрэв active класс байвал устгаж, байхгүй бол нэмнэ
-        document.querySelector(".player-1-panel").classList.toggle("active"); //Хэрэв active класс байвал устгаж, байхгүй бол нэмнэ
-
-        //Шоог түр алга болгох
-        diceDom.style.display = "none";
-
-        // if (activePlayer == 0) {
-        //     activePlayer = 1;
-        // } else {
-        //     activePlayer = 0;
-        // }
+        switchToNextPlayer();
     }
+});
+
+// Hold товчны eventListener
+document.querySelector(".btn-hold").addEventListener("click", function () {
+    //Ээлжинд уг тоглогчийн цуглуулсан ээлжний оноог глобаль оноон дээр нь
+    //нэмж өгнө
+    scores[activePlayer] = scores[activePlayer] + roundScore;
+
+    //Дэлгэц дээрх оноог өөрчилнө
+    document.getElementById("score-" + activePlayer).textContent =
+        scores[activePlayer];
+
+    //Уг тоглогч хожсон эсэхийг шалгах
+    if (scores[activePlayer] >= 15) {
+        document.getElementById("name-" + activePlayer).textContent =
+            "WINNER!!!";
+        document
+            .querySelector(".player-" + activePlayer + "-panel")
+            .classList.add("winner");
+    } else {
+        switchToNextPlayer();
+    }
+});
+
+function switchToNextPlayer() {
+    //Ээлжийн оноог 0 болгоно
+    roundScore = 0;
+    document.getElementById("current-" + activePlayer).textContent = "0";
+
+    //Тоглогчийн ээлжийг солино
+    activePlayer == 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+    //Улаан цэгийг шилжүүлэх
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+
+    //Шоог түр алга болгоно
+    diceDom.style.display = "none";
+}
+
+document.querySelector(".btn-new").addEventListener("click", function () {
+    roundScore = 0;
 });
